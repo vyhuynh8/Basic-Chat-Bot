@@ -1,6 +1,6 @@
 # Basic-Chat-Bot
 
-![Image of ChatBot] https://i.imgur.com/oXwt3Z6.png
+![Image of ChatBot](https://i.imgur.com/oXwt3Z6.png)
 
 
 Description: This bot learns from existing data, parses the user's response, assigns revelance scores to the user's response, and picks a random response from the category that the user's response most correlates with. This is basically the bag of words method. The next step is to turn this into a discord bot with the discord API.
