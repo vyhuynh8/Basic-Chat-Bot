@@ -3,6 +3,7 @@ import random
 import os
 from discord.ext import commands, tasks
 from itertools import cycle
+from main import chat
 
 
 client = commands.Bot(command_prefix = ".")
@@ -33,6 +34,17 @@ async def on_command_error(ctx, error):
 async def on_command_error(ctx, error):
 	if isinstance(error, commands.CommandNotFound):
 		await ctx.send("Command was not found. Please try again.")
+
+@client.event
+async def on_message(message):
+	if (message.author.bot):
+		return
+	channel = message.channel
+	await channel.send(f"{chat(str(message.content))}")
+	# channels = ["commands"]
+	# if str(message.channel) in channels:
+	# 	if message.content.find("hello") != -1:
+	# 		await message.channel.send("hello")
 
 #Commands
 @client.command()
@@ -85,7 +97,7 @@ for filename in os.listdir("./cogs"):
 async def change_status():
 	await client.change_presence(status=discord.Status.idle, activity=discord.Game(next(status)))
 
-client.run("NjMwODc2MzkzMzcwMjg4MTQz.XZu6rQ.9rD9ca-Wx3MqImvCQ3WZKBt1TIs")
+client.run("NjMwODc2MzkzMzcwMjg4MTQz.XZvLWQ.bD4uU_79Y4n3n5w8mHiFbafivjI")
 
 
 

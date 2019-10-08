@@ -5,6 +5,7 @@ import tflearn
 import tensorflow
 import pickle
 import numpy
+import os
 
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
@@ -80,9 +81,9 @@ net = tflearn.regression(net)
 
 model = tflearn.DNN(net)
 
-try:
+if os.path.exists("model.tflearn.meta"):
 	model.load("model.tflearn")
-except:
+else:
 	model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
 	model.save("model.tflearn")
 
@@ -101,25 +102,18 @@ def bag_of_words(s, words):
 	return numpy.array(bag)
 
 
-def chat():
-	print("Start talking with the bot. (type quit to stop)")
-	while True:
-		inp = input("You: ")
-		if inp.lower() == "quit":
-			break
+def chat(inp):
+	results = model.predict([bag_of_words(inp, words)])[0]
+	results_index = numpy.argmax(results)
+	tag = labels[results_index]
+	
+	if results[results_index] > 0.7:
+		for tg in data["intents"]:
+			if tg['tag'] == tag:
+				responses = tg['responses']
 
-		results = model.predict([bag_of_words(inp, words)])[0]
-		results_index = numpy.argmax(results)
-		tag = labels[results_index]
-		
-		if results[results_index] > 0.7:
-			for tg in data["intents"]:
-				if tg['tag'] == tag:
-					responses = tg['responses']
+		return random.choice(responses)
+	else:
+		return "I don't quite understand. Please try again."
 
-			print(random.choice(responses))
-		else:
-			print("I don't quite understand. Please try again.")
-
-chat()
 
