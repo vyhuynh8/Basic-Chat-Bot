@@ -3,7 +3,7 @@
 ![Image of ChatBot](https://i.imgur.com/oXwt3Z6.png)
 
 
-Description: This discord bot learns from existing data, parses the user's response, assigns revelance scores to the user's response, and picks a random response from the category that the user's response most correlates with. This is basically the bag of words method. It uses the discord API to have different channel commands and have the capability to chat with users.
+Description: This discord bot learns from existing data, parses the user's response, assigns relevance scores to the user's response, and picks a random response from the category that the user's response most correlates with. This is basically the bag of words method. It uses the discord API to have different channel commands and have the capability to chat with users.
 
 Tools: python, discord.py, tensorflow, tflearn, pickle, nltk, and numpy
 
